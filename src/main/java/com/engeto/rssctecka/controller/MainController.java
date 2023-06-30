@@ -13,36 +13,28 @@ public class MainController {
 
     @GetMapping("/scifi")
     public String getScifi() throws FileNotFoundException {
-        String text;
-        try {
-            Scanner scanner = new Scanner(new BufferedReader(new FileReader("scifi.txt")));
-            text = scanner.nextLine();
-        } catch (FileNotFoundException e) {
-            throw new FileNotFoundException ("Nepodařilo se nalézt soubor scifi.txt");
-        }
-        return text;
+        return importFromFile("scifi.txt");
     }
 
     @GetMapping("/romantic")
     public String getRomantic() throws FileNotFoundException {
-        String text;
-        try {
-            Scanner scanner = new Scanner(new BufferedReader(new FileReader("romantic.txt")));
-            text = scanner.nextLine();
-        } catch (FileNotFoundException e) {
-            throw new FileNotFoundException ("Nepodařilo se nalézt soubor romantic.txt");
-        }
-        return text;
+        return importFromFile("romantic.txt");
     }
 
     @GetMapping("/historic")
-    public String getHisotoric() throws FileNotFoundException {
-        String text;
-        try {
-            Scanner scanner = new Scanner(new BufferedReader(new FileReader("historic.txt")));
-            text = scanner.nextLine();
+    public String getHistoric() throws FileNotFoundException {
+        return importFromFile("historic.txt");
+    }
+
+    //Metoda pro načtení textu ze souboru
+    public String importFromFile(String fileName) throws FileNotFoundException {
+        String text = "";
+        try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(fileName)))) {
+            while (scanner.hasNextLine()) {
+                text = scanner.nextLine();
+            }
         } catch (FileNotFoundException e) {
-            throw new FileNotFoundException ("Nepodařilo se nalézt soubor historic.txt");
+            throw new FileNotFoundException ("Nepodařilo se nalézt soubor " + fileName);
         }
         return text;
     }
