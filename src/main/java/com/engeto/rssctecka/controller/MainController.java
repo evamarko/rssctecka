@@ -27,7 +27,7 @@ public class MainController {
     }
 
     //Metoda pro načtení textu ze souboru
-    public String importFromFile(String fileName) throws FileNotFoundException {
+    private String importFromFile(String fileName) throws FileNotFoundException {
         String text = "";
         try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(fileName)))) {
             while (scanner.hasNextLine()) {
